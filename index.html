@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Papan Score Remi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-green-800 via-green-700 to-emerald-800 min-h-screen p-2 md:p-4">
+    <div class="max-w-6xl mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-white mb-2">🃏 Papan Score Remi</h1>
+            <p class="text-green-100">Kelola skor permainan kartu Remi Anda</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Input Controls Section -->
+            <div class="bg-white rounded-2xl shadow-2xl p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">⚙️ Kontrol Permainan</h2>
+                
+                <!-- Player Names -->
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-4">Nama Pemain</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm">1</div>
+                            <input type="text" id="player1Name" value="Pemain 1" 
+                                   class="flex-1 text-lg font-medium bg-blue-50 border-2 border-blue-200 focus:border-blue-500 outline-none px-4 py-2 rounded-lg">
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center text-white font-bold text-sm">2</div>
+                            <input type="text" id="player2Name" value="Pemain 2" 
+                                   class="flex-1 text-lg font-medium bg-red-50 border-2 border-red-200 focus:border-red-500 outline-none px-4 py-2 rounded-lg">
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold text-sm">3</div>
+                            <input type="text" id="player3Name" value="Pemain 3" 
+                                   class="flex-1 text-lg font-medium bg-purple-50 border-2 border-purple-200 focus:border-purple-500 outline-none px-4 py-2 rounded-lg">
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold text-sm">4</div>
+                            <input type="text" id="player4Name" value="Pemain 4" 
+                                   class="flex-1 text-lg font-medium bg-orange-50 border-2 border-orange-200 focus:border-orange-500 outline-none px-4 py-2 rounded-lg">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Round Score Input -->
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-4">Input Skor Babak <span id="roundNumber" class="text-blue-600">1</span></h3>
+                    <div class="grid grid-cols-2 gap-3">
+                        <!-- Player 1 Input -->
+                        <div class="bg-blue-50 p-4 rounded-lg border-2 border-blue-200">
+                            <div class="text-center mb-3">
+                                <span class="font-medium text-blue-700" id="inputName1">Pemain 1</span>
+                            </div>
+                            <input type="number" id="roundScore1" value="0" step="5" min="-500" max="500"
+                                   class="w-full text-center text-xl font-bold bg-white border-2 border-blue-300 focus:border-blue-500 outline-none px-3 py-3 rounded-lg mb-3">
+                            <div class="flex space-x-2">
+                                <button onclick="adjustRoundScore(1, -5)" class="flex-1 bg-red-500 hover:bg-red-600 text-white py-3 rounded-lg font-bold text-lg">-5</button>
+                                <button onclick="adjustRoundScore(1, 5)" class="flex-1 bg-green-500 hover:bg-green-600 text-white py-3 rounded-lg font-bold text-lg">+5</button>
+                            </div>
+                        </div>
+
+                        <!-- Player 2 Input -->
+                        <div class="bg-red-50 p-4 rounded-lg border-2 border-red-200">
+                            <div class="text-center mb-3">
+                                <span class="font-medium text-red-700" id="inputName2">Pemain 2</span>
+                            </div>
+                            <input type="number" id="roundScore2" value="0" step="5" min="-500" max="500"
+                                   class="w-full text-center text-xl font-bold bg-white border-2 border-red-300 focus:border-red-500 outline-none px-3 py-3 rounded-lg mb-3">
+                            <div class="flex space-x-2">
+                                <button onclick="adjustRoundScore(2, -5)" class="flex-1 bg-red-500 hover:bg-red-600 text-white py-3 rounded-lg font-bold text-lg">-5</button>
+                                <button onclick="adjustRoundScore(2, 5)" class="flex-1 bg-green-500 hover:bg-green-600 text-white py-3 rounded-lg font-bold text-lg">+5</button>
+                            </div>
+                        </div>
+
+                        <!-- Player 3 Input -->
+                        <div class="bg-purple-50 p-4 rounded-lg border-2 border-purple-200">
+                            <div class="text-center mb-3">
+                                <span class="font-medium text-purple-700" id="inputName3">Pemain 3</span>
+                            </div>
+                            <input type="number" id="roundScore3" value="0" step="5" min="-500" max="500"
+                                   class="w-full text-center text-xl font-bold bg-white border-2 border-purple-300 focus:border-purple-500 outline-none px-3 py-3 rounded-lg mb-3">
+                            <div class="flex space-x-2">
+                                <button onclick="adjustRoundScore(3, -5)" class="flex-1 bg-red-500 hover:bg-red-600 text-white py-3 rounded-lg font-bold text-lg">-5</button>
+                                <button onclick="adjustRoundScore(3, 5)" class="flex-1 bg-green-500 hover:bg-green-600 text-white py-3 rounded-lg font-bold text-lg">+5</button>
+                            </div>
+                        </div>
+
+                        <!-- Player 4 Input -->
+                        <div class="bg-orange-50 p-4 rounded-lg border-2 border-orange-200">
+                            <div class="text-center mb-3">
+                                <span class="font-medium text-orange-700" id="inputName4">Pemain 4</span>
+                            </div>
+                            <input type="number" id="roundScore4" value="0" step="5" min="-500" max="500"
+                                   class="w-full text-center text-xl font-bold bg-white border-2 border-orange-300 focus:border-orange-500 outline-none px-3 py-3 rounded-lg mb-3">
+                            <div class="flex space-x-2">
+                                <button onclick="adjustRoundScore(4, -5)" class="flex-1 bg-red-500 hover:bg-red-600 text-white py-3 rounded-lg font-bold text-lg">-5</button>
+                                <button onclick="adjustRoundScore(4, 5)" class="flex-1 bg-green-500 hover:bg-green-600 text-white py-3 rounded-lg font-bold text-lg">+5</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Submit Round Button -->
+                    <button onclick="submitRound()" class="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors">
+                        ✅ Input Skor Babak <span id="submitRoundNumber">1</span>
+                    </button>
+                </div>
+
+                <!-- Game Controls -->
+                <div class="space-y-3">
+                    <button onclick="resetAllScores()" class="w-full bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-lg font-medium transition-colors">
+                        🔄 Reset Semua Skor
+                    </button>
+                    <button onclick="newGame()" class="w-full bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-medium transition-colors">
+                        🎮 Permainan Baru
+                    </button>
+                    <button onclick="clearHistory()" class="w-full bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-medium transition-colors">
+                        🗑️ Hapus Riwayat
+                    </button>
+                </div>
+            </div>
+
+            <!-- Score Display Section -->
+            <div class="space-y-6">
+                <!-- Current Scores -->
+                <div class="bg-white rounded-2xl shadow-2xl p-6">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">📊 Skor Total</h2>
+                    <div class="space-y-4">
+                        <!-- Player 1 Score -->
+                        <div class="bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl p-4 border-2 border-blue-200">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold">1</div>
+                                    <span class="text-lg font-semibold text-blue-800" id="scoreName1">Pemain 1</span>
+                                </div>
+                                <div class="text-3xl font-bold text-blue-700" id="player1Score">0</div>
+                            </div>
+
+                        </div>
+
+                        <!-- Player 2 Score -->
+                        <div class="bg-gradient-to-r from-red-50 to-red-100 rounded-xl p-4 border-2 border-red-200">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-red-500 rounded-full flex items-center justify-center text-white font-bold">2</div>
+                                    <span class="text-lg font-semibold text-red-800" id="scoreName2">Pemain 2</span>
+                                </div>
+                                <div class="text-3xl font-bold text-red-700" id="player2Score">0</div>
+                            </div>
+
+                        </div>
+
+                        <!-- Player 3 Score -->
+                        <div class="bg-gradient-to-r from-purple-50 to-purple-100 rounded-xl p-4 border-2 border-purple-200">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold">3</div>
+                                    <span class="text-lg font-semibold text-purple-800" id="scoreName3">Pemain 3</span>
+                                </div>
+                                <div class="text-3xl font-bold text-purple-700" id="player3Score">0</div>
+                            </div>
+
+                        </div>
+
+                        <!-- Player 4 Score -->
+                        <div class="bg-gradient-to-r from-orange-50 to-orange-100 rounded-xl p-4 border-2 border-orange-200">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold">4</div>
+                                    <span class="text-lg font-semibold text-orange-800" id="scoreName4">Pemain 4</span>
+                                </div>
+                                <div class="text-3xl font-bold text-orange-700" id="player4Score">0</div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Leaderboard -->
+                <div class="bg-white rounded-2xl shadow-2xl p-6">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center">🏆 Peringkat Sementara</h2>
+                    <div id="leaderboard" class="space-y-2">
+                        <!-- Leaderboard akan diupdate otomatis -->
+                    </div>
+                </div>
+
+                <!-- Round History -->
+                <div class="bg-white rounded-2xl shadow-2xl p-6">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center">📝 Riwayat Babak</h2>
+                    <div id="roundHistory" class="space-y-2">
+                        <p class="text-gray-500 text-center">Belum ada babak yang dimainkan</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Inisialisasi variabel
+        let scores = { 1: 0, 2: 0, 3: 0, 4: 0 };
+        let currentRound = 1;
+        let roundHistory = [];
+        let gameEnded = false;
+
+        // Fungsi untuk adjust skor babak dengan tombol +/-
+        function adjustRoundScore(player, amount) {
+            const input = document.getElementById(`roundScore${player}`);
+            const currentValue = parseInt(input.value) || 0;
+            const newValue = currentValue + amount;
+            
+            // Batasi nilai antara -500 dan 500
+            if (newValue >= -500 && newValue <= 500) {
+                input.value = newValue;
+            }
+        }
+
+
+
+        // Fungsi untuk cek pemenang
+        function checkWinner() {
+            for (let i = 1; i <= 4; i++) {
+                if (scores[i] >= 500) {
+                    const playerName = document.getElementById(`player${i}Name`).value;
+                    gameEnded = true;
+                    
+                    // Tampilkan pesan pemenang
+                    setTimeout(() => {
+                        alert(`🎉 SELAMAT! ${playerName} adalah PEMENANG dengan skor ${scores[i]} poin! 🏆`);
+                    }, 500);
+                    
+                    return i;
+                }
+            }
+            return null;
+        }
+
+        // Fungsi untuk submit skor babak
+        function submitRound() {
+            if (gameEnded) {
+                alert('Permainan sudah berakhir! Mulai permainan baru untuk melanjutkan.');
+                return;
+            }
+
+            const roundScores = {};
+            let hasValidScore = false;
+            
+            // Ambil skor dari input
+            for (let i = 1; i <= 4; i++) {
+                const score = parseInt(document.getElementById(`roundScore${i}`).value) || 0;
+                roundScores[i] = score;
+                if (score !== 0) hasValidScore = true;
+            }
+            
+            // Tidak perlu validasi khusus, skor 0 atau negatif juga valid dalam permainan Remi
+            
+            // Tambahkan ke skor total
+            for (let i = 1; i <= 4; i++) {
+                scores[i] += roundScores[i];
+                document.getElementById(`player${i}Score`).textContent = scores[i];
+            }
+            
+            // Cek pemenang
+            const winner = checkWinner();
+            
+            // Simpan ke riwayat
+            const playerNames = {};
+            for (let i = 1; i <= 4; i++) {
+                playerNames[i] = document.getElementById(`player${i}Name`).value;
+            }
+            
+            roundHistory.push({
+                round: currentRound,
+                scores: { ...roundScores },
+                names: { ...playerNames },
+                winner: winner
+            });
+            
+            // Reset input untuk babak berikutnya
+            for (let i = 1; i <= 4; i++) {
+                document.getElementById(`roundScore${i}`).value = '0';
+            }
+            
+            // Update babak hanya jika permainan belum berakhir
+            if (!gameEnded) {
+                currentRound++;
+                document.getElementById('roundNumber').textContent = currentRound;
+                document.getElementById('submitRoundNumber').textContent = currentRound;
+            }
+            
+            // Update tampilan
+            updateLeaderboard();
+            updateRoundHistory();
+            
+            // Animasi skor
+            for (let i = 1; i <= 4; i++) {
+                const scoreElement = document.getElementById(`player${i}Score`);
+                scoreElement.classList.add('transform', 'scale-110');
+                setTimeout(() => {
+                    scoreElement.classList.remove('transform', 'scale-110');
+                }, 200);
+            }
+        }
+
+        // Fungsi untuk reset semua skor (hanya kosongkan papan skor)
+        function resetAllScores() {
+            if (confirm('⚠️ KONFIRMASI RESET\n\nApakah Anda yakin ingin mereset semua skor ke 0?\n\nRiwayat permainan akan tetap tersimpan.\n\nKlik OK untuk melanjutkan atau Cancel untuk membatalkan.')) {
+                // Reset hanya skor, tidak reset riwayat
+                for (let i = 1; i <= 4; i++) {
+                    scores[i] = 0;
+                    document.getElementById(`player${i}Score`).textContent = '0';
+                    document.getElementById(`roundScore${i}`).value = '0';
+                }
+                
+                // Reset babak tapi tidak reset riwayat
+                currentRound = 1;
+                gameEnded = false;
+                document.getElementById('roundNumber').textContent = currentRound;
+                document.getElementById('submitRoundNumber').textContent = currentRound;
+                
+                // Update tampilan (riwayat tetap ada)
+                updateLeaderboard();
+                
+                alert('✅ Semua skor telah direset ke 0. Riwayat permainan tetap tersimpan.');
+            }
+        }
+
+        // Fungsi untuk permainan baru (reset skor tapi riwayat tetap ada)
+        function newGame() {
+            if (confirm('🎮 KONFIRMASI PERMAINAN BARU\n\nApakah Anda yakin ingin memulai permainan baru?\n\n• Semua skor akan direset ke 0\n• Nama pemain akan kembali ke default\n• Riwayat permainan tetap tersimpan\n\nKlik OK untuk melanjutkan atau Cancel untuk membatalkan.')) {
+                // Reset skor dan nama pemain
+                for (let i = 1; i <= 4; i++) {
+                    scores[i] = 0;
+                    document.getElementById(`player${i}Score`).textContent = '0';
+                    document.getElementById(`roundScore${i}`).value = '0';
+                    document.getElementById(`player${i}Name`).value = `Pemain ${i}`;
+                }
+                
+                // Reset babak tapi TIDAK reset riwayat
+                currentRound = 1;
+                gameEnded = false;
+                document.getElementById('roundNumber').textContent = currentRound;
+                document.getElementById('submitRoundNumber').textContent = currentRound;
+                
+                // Update nama dan tampilan (riwayat tetap ada)
+                updatePlayerNames();
+                updateLeaderboard();
+                
+                alert('🎮 Permainan baru dimulai! Skor direset, riwayat tetap tersimpan.');
+            }
+        }
+
+        // Fungsi untuk hapus riwayat
+        function clearHistory() {
+            if (confirm('🗑️ KONFIRMASI HAPUS RIWAYAT\n\nApakah Anda yakin ingin menghapus SEMUA riwayat permainan?\n\n⚠️ PERINGATAN: Tindakan ini tidak dapat dibatalkan!\n\n• Semua riwayat babak akan hilang permanen\n• Skor saat ini akan tetap ada\n\nKlik OK untuk menghapus atau Cancel untuk membatalkan.')) {
+                roundHistory = [];
+                updateRoundHistory();
+                alert('🗑️ Riwayat permainan telah dihapus.');
+            }
+        }
+
+        // Fungsi untuk update nama pemain di semua tempat
+        function updatePlayerNames() {
+            for (let i = 1; i <= 4; i++) {
+                const name = document.getElementById(`player${i}Name`).value;
+                document.getElementById(`inputName${i}`).textContent = name;
+                document.getElementById(`scoreName${i}`).textContent = name;
+            }
+            updateLeaderboard();
+        }
+
+        // Fungsi untuk update leaderboard
+        function updateLeaderboard() {
+            const leaderboard = document.getElementById('leaderboard');
+            
+            // Buat array pemain dengan skor
+            const players = [];
+            for (let i = 1; i <= 4; i++) {
+                const name = document.getElementById(`player${i}Name`).value;
+                players.push({
+                    id: i,
+                    name: name,
+                    score: scores[i]
+                });
+            }
+            
+            // Urutkan berdasarkan skor tertinggi
+            players.sort((a, b) => b.score - a.score);
+            
+            // Buat HTML leaderboard
+            let leaderboardHTML = '';
+            players.forEach((player, index) => {
+                const position = index + 1;
+                let medal = '';
+                let bgColor = '';
+                let winnerBadge = '';
+                
+                // Cek apakah pemain ini pemenang (skor >= 500)
+                if (player.score >= 500) {
+                    medal = '👑';
+                    bgColor = 'bg-gradient-to-r from-yellow-200 to-yellow-300 border-yellow-500 shadow-lg';
+                    winnerBadge = '<span class="ml-2 bg-yellow-500 text-white px-2 py-1 rounded-full text-xs font-bold">PEMENANG!</span>';
+                } else if (position === 1) {
+                    medal = '🥇';
+                    bgColor = 'bg-yellow-100 border-yellow-300';
+                } else if (position === 2) {
+                    medal = '🥈';
+                    bgColor = 'bg-gray-100 border-gray-300';
+                } else if (position === 3) {
+                    medal = '🥉';
+                    bgColor = 'bg-orange-100 border-orange-300';
+                } else {
+                    medal = `${position}.`;
+                    bgColor = 'bg-blue-50 border-blue-200';
+                }
+                
+                leaderboardHTML += `
+                    <div class="flex items-center justify-between p-3 rounded-lg border-2 ${bgColor}">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-xl font-bold">${medal}</span>
+                            <span class="font-semibold text-gray-800">${player.name}${winnerBadge}</span>
+                        </div>
+                        <span class="text-lg font-bold text-gray-700">${player.score} poin</span>
+                    </div>
+                `;
+            });
+            
+            leaderboard.innerHTML = leaderboardHTML;
+        }
+
+        // Fungsi untuk update riwayat babak
+        function updateRoundHistory() {
+            const historyDiv = document.getElementById('roundHistory');
+            
+            if (roundHistory.length === 0) {
+                historyDiv.innerHTML = '<p class="text-gray-500 text-center">Belum ada babak yang dimainkan</p>';
+                return;
+            }
+            
+            let historyHTML = '';
+            roundHistory.forEach(round => {
+                historyHTML += `
+                    <div class="bg-gray-50 p-2 md:p-3 rounded-lg border">
+                        <div class="font-semibold text-gray-800 mb-2 text-sm md:text-base">Babak ${round.round}</div>
+                        <div class="grid grid-cols-2 gap-1 md:gap-2 text-xs md:text-sm">
+                            <div>${round.names[1]}: ${round.scores[1]}</div>
+                            <div>${round.names[2]}: ${round.scores[2]}</div>
+                            <div>${round.names[3]}: ${round.scores[3]}</div>
+                            <div>${round.names[4]}: ${round.scores[4]}</div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            historyDiv.innerHTML = historyHTML;
+        }
+
+        // Inisialisasi saat halaman dimuat
+        updatePlayerNames();
+        updateLeaderboard();
+        updateRoundHistory();
+
+        // Event listener untuk update nama pemain
+        for (let i = 1; i <= 4; i++) {
+            document.getElementById(`player${i}Name`).addEventListener('input', updatePlayerNames);
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97bbc7adc1164481',t:'MTc1NzMwNjU1NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
